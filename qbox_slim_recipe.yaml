@@ -2,6 +2,7 @@ $engine: 3
 $onesync: on
 
 name: Qbox Slim - Dambro Development
+version: 1.0.0
 author: Dambro Development
 description: Minimal Qbox framework with ox_lib, ox_target, ox_inventory and oxmysql. Clean base for custom roleplay servers.
 
@@ -40,6 +41,7 @@ tasks:
   # CFX default resources
   - action: download_github
     src: https://github.com/citizenfx/cfx-server-data
+    ref: master
     subpath: resources
     dest: ./resources/[cfx-default]
 
@@ -89,7 +91,7 @@ tasks:
 
   # Qbox core
   - action: download_file
-    url: https://github.com/Qbox-project/qbx_core/releases/latest/download/qbx_core.zip
+    url: https://github.com/qbox-project/qbx_core/releases/latest/download/qbx_core.zip
     path: ./tmp/qbx_core.zip
 
   - action: unzip
@@ -101,7 +103,7 @@ tasks:
 
   # Qbox spawn
   - action: download_file
-    url: https://github.com/Qbox-project/qbx_spawn/releases/latest/download/qbx_spawn.zip
+    url: https://github.com/qbox-project/qbx_spawn/releases/latest/download/qbx_spawn.zip
     path: ./tmp/qbx_spawn.zip
 
   - action: unzip
@@ -110,13 +112,13 @@ tasks:
 
   # Qbox vehicle keys
   - action: download_github
-    src: https://github.com/Qbox-project/qbx_vehiclekeys
+    src: https://github.com/qbox-project/qbx_vehiclekeys
     ref: main
     dest: ./resources/[qbx]/qbx_vehiclekeys
 
   # Qbox small resources
   - action: download_file
-    url: https://github.com/Qbox-project/qbx_smallresources/releases/latest/download/qbx_smallresources.zip
+    url: https://github.com/qbox-project/qbx_smallresources/releases/latest/download/qbx_smallresources.zip
     path: ./tmp/qbx_smallresources.zip
 
   - action: unzip
