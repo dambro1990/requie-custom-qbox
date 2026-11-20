@@ -1,0 +1,134 @@
+$engine: 3
+$onesync: on
+
+name: Qbox Slim - Dambro Development
+author: Dambro Development
+description: Minimal Qbox framework with ox_lib, ox_target, ox_inventory and oxmysql. Clean base for custom roleplay servers.
+
+tasks:
+  # Qbox txAdmin base configuration
+  - action: download_github
+    src: https://github.com/Qbox-project/txAdminRecipe
+    ref: main
+    dest: ./tmp/qbox
+
+  - action: move_path
+    src: ./tmp/qbox/server.cfg
+    dest: ./server.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/permissions.cfg
+    dest: ./permissions.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/ox.cfg
+    dest: ./ox.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/voice.cfg
+    dest: ./voice.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/misc.cfg
+    dest: ./misc.cfg
+
+  # Database
+  - action: connect_database
+  - action: query_database
+    file: ./tmp/qbox/qbox.sql
+
+  # CFX default resources
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    subpath: resources
+    dest: ./resources/[cfx-default]
+
+  - action: remove_path
+    path: ./resources/[cfx-default]/[gameplay]/chat
+
+  # oxmysql
+  - action: download_file
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+    path: ./tmp/oxmysql.zip
+
+  - action: unzip
+    src: ./tmp/oxmysql.zip
+    dest: ./resources/[ox]
+
+  # ox_lib
+  - action: download_file
+    url: https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
+    path: ./tmp/ox_lib.zip
+
+  - action: unzip
+    src: ./tmp/ox_lib.zip
+    dest: ./resources/[ox]
+
+  # ox_target
+  - action: download_file
+    url: https://github.com/overextended/ox_target/releases/latest/download/ox_target.zip
+    path: ./tmp/ox_target.zip
+
+  - action: unzip
+    src: ./tmp/ox_target.zip
+    dest: ./resources/[ox]
+
+  # ox_inventory
+  - action: download_file
+    url: https://github.com/overextended/ox_inventory/releases/latest/download/ox_inventory.zip
+    path: ./tmp/ox_inventory.zip
+
+  - action: unzip
+    src: ./tmp/ox_inventory.zip
+    dest: ./resources/[ox]
+
+  - action: move_path
+    src: ./tmp/qbox/items.lua
+    dest: ./resources/[ox]/ox_inventory/data/items.lua
+    overwrite: true
+
+  # Qbox core
+  - action: download_file
+    url: https://github.com/Qbox-project/qbx_core/releases/latest/download/qbx_core.zip
+    path: ./tmp/qbx_core.zip
+
+  - action: unzip
+    src: ./tmp/qbx_core.zip
+    dest: ./resources/[qbx]
+
+  - action: query_database
+    file: ./resources/[qbx]/qbx_core/qbx_core.sql
+
+  # Qbox spawn
+  - action: download_file
+    url: https://github.com/Qbox-project/qbx_spawn/releases/latest/download/qbx_spawn.zip
+    path: ./tmp/qbx_spawn.zip
+
+  - action: unzip
+    src: ./tmp/qbx_spawn.zip
+    dest: ./resources/[qbx]
+
+  # Qbox vehicle keys
+  - action: download_github
+    src: https://github.com/Qbox-project/qbx_vehiclekeys
+    ref: main
+    dest: ./resources/[qbx]/qbx_vehiclekeys
+
+  # Qbox small resources
+  - action: download_file
+    url: https://github.com/Qbox-project/qbx_smallresources/releases/latest/download/qbx_smallresources.zip
+    path: ./tmp/qbx_smallresources.zip
+
+  - action: unzip
+    src: ./tmp/qbx_smallresources.zip
+    dest: ./resources/[qbx]
+
+  # Voice
+  - action: download_github
+    src: https://github.com/AvarianKnight/pma-voice
+    ref: main
+    dest: ./resources/[voice]/pma-voice
+
+  # Cleanup
+  - action: remove_path
+    path: ./tmp
