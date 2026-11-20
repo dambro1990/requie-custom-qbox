@@ -1,0 +1,125 @@
+
+$engine: 3
+$onesync: on
+
+name: Qbox Slim - FiveM Appearance
+author: Dambro Development
+description: Minimal Qbox base with ox_lib, ox_target, ox_inventory, oxmysql and fivem-appearance. No preinstalled RP jobs or addons.
+
+tasks:
+  # ==========================================
+  # DEFAULT CFX RESOURCES
+  # ==========================================
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    ref: master
+    subpath: resources
+    dest: ./resources/[cfx-default]
+
+  # ==========================================
+  # OFFICIAL QBOX SERVER CONFIGURATION
+  # ==========================================
+  - action: download_github
+    src: https://github.com/Qbox-project/txAdminRecipe
+    ref: main
+    dest: ./tmp/qbox
+
+  - action: move_path
+    src: ./tmp/qbox/server.cfg
+    dest: ./server.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/ox.cfg
+    dest: ./ox.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/permissions.cfg
+    dest: ./permissions.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/voice.cfg
+    dest: ./voice.cfg
+
+  - action: move_path
+    src: ./tmp/qbox/misc.cfg
+    dest: ./misc.cfg
+
+  # ==========================================
+  # DATABASE
+  # ==========================================
+  - action: connect_database
+
+  # ==========================================
+  # OXMYSQL
+  # ==========================================
+  - action: download_file
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+    path: ./tmp/files/oxmysql.zip
+
+  - action: unzip
+    src: ./tmp/files/oxmysql.zip
+    dest: ./resources/[standalone]
+
+  # ==========================================
+  # OX_LIB
+  # ==========================================
+  - action: download_file
+    url: https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
+    path: ./tmp/files/ox_lib.zip
+
+  - action: unzip
+    src: ./tmp/files/ox_lib.zip
+    dest: ./resources/[ox]
+
+  # ==========================================
+  # OX_TARGET
+  # ==========================================
+  - action: download_file
+    url: https://github.com/overextended/ox_target/releases/latest/download/ox_target.zip
+    path: ./tmp/files/ox_target.zip
+
+  - action: unzip
+    src: ./tmp/files/ox_target.zip
+    dest: ./resources/[ox]
+
+  # ==========================================
+  # OX_INVENTORY
+  # ==========================================
+  - action: download_file
+    url: https://github.com/overextended/ox_inventory/releases/latest/download/ox_inventory.zip
+    path: ./tmp/files/ox_inventory.zip
+
+  - action: unzip
+    src: ./tmp/files/ox_inventory.zip
+    dest: ./resources/[ox]
+
+  # ==========================================
+  # QBOX CORE
+  # ==========================================
+  - action: download_github
+    src: https://github.com/Qbox-project/qbx_core
+    ref: main
+    dest: ./resources/[qbx]/qbx_core
+
+  - action: query_database
+    file: ./resources/[qbx]/qbx_core/qbx_core.sql
+
+  # ==========================================
+  # QBOX APPEARANCE
+  # ==========================================
+  - action: download_github
+    src: https://github.com/wasabirobby/fivem-appearance
+    ref: main
+    dest: ./resources/[standalone]/fivem-appearance
+
+  # ==========================================
+  # REMOVE CONFLICTING APPEARANCE RESOURCES
+  # ==========================================
+  - action: remove_path
+    path: ./resources/[qbx]/qbx_spawn
+
+  # ==========================================
+  # CLEANUP
+  # ==========================================
+  - action: remove_path
+    path: ./tmp
